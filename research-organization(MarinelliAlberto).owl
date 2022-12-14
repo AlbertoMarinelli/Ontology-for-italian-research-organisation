@@ -1,0 +1,903 @@
+@prefix : <http://www.semanticweb.org/research-organization#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@base <http://www.semanticweb.org/research-organization> .
+
+<http://www.semanticweb.org/research-organization> rdf:type owl:Ontology .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.semanticweb.org/research-organization#directs
+:directs rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isDirectedBy ;
+         rdf:type owl:InverseFunctionalProperty ;
+         rdfs:domain :Director ;
+         rdfs:range :Institute ;
+         rdfs:comment "directs relates a director to an institute in which they works"@en ;
+         rdfs:label "directs"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasBuilding
+:hasBuilding rdf:type owl:ObjectProperty ;
+             rdfs:subPropertyOf :hasPart ;
+             owl:inverseOf :isBuildingOf ;
+             rdf:type owl:InverseFunctionalProperty ;
+             rdfs:domain :Institute ;
+             rdfs:range :Building ;
+             rdfs:comment "hasBuilding is a subproperty of hasPart and relates institute to the buildings that belongs to it"@en ;
+             rdfs:label "has building"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasContractWith
+:hasContractWith rdf:type owl:ObjectProperty ;
+                 owl:inverseOf :makesContractWith ;
+                 rdf:type owl:FunctionalProperty ;
+                 rdfs:domain :Employee ;
+                 rdfs:range :ResearchOrganization ;
+                 rdfs:comment "hasContractWith relates an employee to the research organization with which he has a contract"@en ;
+                 rdfs:label "has contract with"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasInstitute
+:hasInstitute rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :hasPart ;
+              owl:inverseOf :isInstituteOf ;
+              rdf:type owl:InverseFunctionalProperty ;
+              rdfs:domain :ResearchOrganization ;
+              rdfs:range :Institute ;
+              rdfs:comment "hasInstitute is a subproperty of hasPart and relates a research organization to the institutes that compose it"@en ;
+              rdfs:label "has institute"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasLaboratory
+:hasLaboratory rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :hasPart ;
+               owl:inverseOf :isLaboratoryOf ;
+               rdf:type owl:InverseFunctionalProperty ;
+               rdfs:domain :Institute ;
+               rdfs:range :Laboratory ;
+               rdfs:comment "hasLaboratory is a subproperty of hasPart and relates an institute to laboratories that compose it"@en ;
+               rdfs:label "has laboratory"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasLaboratoryMember
+:hasLaboratoryMember rdf:type owl:ObjectProperty ;
+                     rdfs:subPropertyOf :hasMember ;
+                     owl:inverseOf :isMemberOfLaboratory ;
+                     rdf:type owl:InverseFunctionalProperty ;
+                     rdfs:domain :Laboratory ;
+                     rdfs:range [ rdf:type owl:Class ;
+                                  owl:unionOf ( :AdministrativeStaff
+                                                :GraduateFellow
+                                                :PostdoctoralFellow
+                                                :Researcher
+                                                :Technologist
+                                              )
+                                ] ;
+                     rdfs:comment "hasLaboratoryMember relates a Laboratory with its members. Each member is: graduate fellow or postdoctoral fellow or researcher or technologist or AdministrativeStaff"@en ;
+                     rdfs:label "has laboratory member"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasLocation
+:hasLocation rdf:type owl:ObjectProperty ;
+             owl:inverseOf :isLocationOf ;
+             rdf:type owl:FunctionalProperty ;
+             rdfs:domain :Building ;
+             rdfs:range :Location ;
+             rdfs:comment "hasLocation relates a building to the location where it is placed"@en ;
+             rdfs:label "has location"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasMember
+:hasMember rdf:type owl:ObjectProperty ;
+           owl:inverseOf :isMemberOf ;
+           rdf:type owl:ReflexiveProperty ;
+           rdfs:comment "hasMember is superproperty of: hasResearchGroupMember, hasLaboratoryMember"@en ;
+           rdfs:label "has member"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasOffice
+:hasOffice rdf:type owl:ObjectProperty ;
+           rdfs:subPropertyOf :hasPart ;
+           owl:inverseOf :isOfficeOf ;
+           rdf:type owl:InverseFunctionalProperty ;
+           rdfs:domain :Building ;
+           rdfs:range :Office ;
+           rdfs:comment "hasOffice is a subproperty of hasPart and relates a building to the offices belonging to it"@en ;
+           rdfs:label "has office"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasPart
+:hasPart rdf:type owl:ObjectProperty ;
+         owl:inverseOf :isPartOf ;
+         rdf:type owl:TransitiveProperty ,
+                  owl:ReflexiveProperty ;
+         rdfs:comment "hasPart is a superproperty of: hasInstitute, hasLaboratory, hasResearchGroup, hasBuilding and hasOffice"@en ;
+         rdfs:label "has part"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasResearchGroup
+:hasResearchGroup rdf:type owl:ObjectProperty ;
+                  rdfs:subPropertyOf :hasPart ;
+                  owl:inverseOf :isResearchGroupOf ;
+                  rdf:type owl:InverseFunctionalProperty ;
+                  rdfs:domain :Laboratory ;
+                  rdfs:range :ResearchGroup ;
+                  rdfs:comment "hasResearchGroup is a subproperty of hasPart and relates laboratory with research groups that compose it"@en ;
+                  rdfs:label "has research group"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasResearchGroupMember
+:hasResearchGroupMember rdf:type owl:ObjectProperty ;
+                        rdfs:subPropertyOf :hasMember ;
+                        owl:inverseOf :isMemberOfResearchGroup ;
+                        rdf:type owl:InverseFunctionalProperty ;
+                        rdfs:domain :ResearchGroup ;
+                        rdfs:range [ rdf:type owl:Class ;
+                                     owl:unionOf ( :AdministrativeStaff
+                                                   :GraduateFellow
+                                                   :PostdoctoralFellow
+                                                   :Researcher
+                                                   :Technologist
+                                                 )
+                                   ] ;
+                        rdfs:comment "hasResearchGroupMember relates a research group with its members. Each member is: graduate fellow or postdoctoral fellow or researcher or technologist or AdministrativeStaff"@en ;
+                        rdfs:label "has research group member"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hosts
+:hosts rdf:type owl:ObjectProperty ;
+       owl:inverseOf :isHostedIn ;
+       rdf:type owl:InverseFunctionalProperty ;
+       rdfs:domain :Office ;
+       rdfs:range :Employee ;
+       rdfs:comment "hosts relates an office to employees that work in it"@en ;
+       rdfs:label "hosts"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isBuildingOf
+:isBuildingOf rdf:type owl:ObjectProperty ;
+              rdfs:subPropertyOf :isPartOf ;
+              rdf:type owl:FunctionalProperty ;
+              rdfs:domain :Building ;
+              rdfs:range :Institute ;
+              rdfs:comment "isBuildingOf is a subproperty of isPartOf and relates buildings to the institute they belong to"@en ;
+              rdfs:label "is building of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isDirectedBy
+:isDirectedBy rdf:type owl:ObjectProperty ,
+                       owl:FunctionalProperty ;
+              rdfs:domain :Institute ;
+              rdfs:range :Director ;
+              rdfs:comment "isDirectedBy relates an institute to director that work in it"@en ;
+              rdfs:label "is directed by"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isHostedIn
+:isHostedIn rdf:type owl:ObjectProperty ,
+                     owl:FunctionalProperty ;
+            rdfs:domain :Employee ;
+            rdfs:range :Office ;
+            rdfs:comment "isHostedIn relates employees to the office in which they works"@en ;
+            rdfs:label "is hosted in"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isInstituteOf
+:isInstituteOf rdf:type owl:ObjectProperty ;
+               rdfs:subPropertyOf :isPartOf ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain :Institute ;
+               rdfs:range :ResearchOrganization ;
+               rdfs:comment "isIntituteOf is a subproperty of isPartOf and relates intitutes to the research organization of which it is composed"@en ;
+               rdfs:label "is institute of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isLaboratoryOf
+:isLaboratoryOf rdf:type owl:ObjectProperty ;
+                rdfs:subPropertyOf :isPartOf ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :Laboratory ;
+                rdfs:range :Institute ;
+                rdfs:comment "isLaboratoryOf is a subproperty of isPartOf and relates laboratories to the institute of which it is composed"@en ;
+                rdfs:label "is laboratory of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isLocationOf
+:isLocationOf rdf:type owl:ObjectProperty ,
+                       owl:InverseFunctionalProperty ;
+              rdfs:domain :Location ;
+              rdfs:range :Building ;
+              rdfs:comment "isLocationOf relates a location to buildings that are placed there"@en ;
+              rdfs:label "is location of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isMemberOf
+:isMemberOf rdf:type owl:ObjectProperty ,
+                     owl:ReflexiveProperty ;
+            rdfs:comment "isMemberOf is a superproperty of: isMemberOfLaboratory and isMemberOfResearchGroup"@en ;
+            rdfs:label "is member of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isMemberOfLaboratory
+:isMemberOfLaboratory rdf:type owl:ObjectProperty ;
+                      rdfs:subPropertyOf :isMemberOf ;
+                      rdf:type owl:FunctionalProperty ;
+                      rdfs:domain [ rdf:type owl:Class ;
+                                    owl:unionOf ( :AdministrativeStaff
+                                                  :GraduateFellow
+                                                  :PostdoctoralFellow
+                                                  :Researcher
+                                                  :Technologist
+                                                )
+                                  ] ;
+                      rdfs:range :Laboratory ;
+                      rdfs:comment "isMemberOfLaboratory is a subproperty of isMember and relates the members of a reserach group to their research group. Each member is: graduate fellow or postdoctoral fellow or researcher or technologist or AdministrativeStaff"@en ;
+                      rdfs:label "is member of laboratory"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isMemberOfResearchGroup
+:isMemberOfResearchGroup rdf:type owl:ObjectProperty ;
+                         rdfs:subPropertyOf :isMemberOf ;
+                         rdf:type owl:FunctionalProperty ;
+                         rdfs:domain [ rdf:type owl:Class ;
+                                       owl:unionOf ( :AdministrativeStaff
+                                                     :GraduateFellow
+                                                     :PostdoctoralFellow
+                                                     :Researcher
+                                                     :Technologist
+                                                   )
+                                     ] ;
+                         rdfs:range :ResearchGroup ;
+                         rdfs:comment "isMemberOfResearchGroup is a subproperty of isMember and relates the members of a reserach group to their research group. Each member is: graduate fellow or postdoctoral fellow or researcher or technologist or AdministrativeStaff"@en ;
+                         rdfs:label "is member of research group"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isOfficeOf
+:isOfficeOf rdf:type owl:ObjectProperty ;
+            rdfs:subPropertyOf :isPartOf ;
+            rdf:type owl:FunctionalProperty ;
+            rdfs:domain :Office ;
+            rdfs:range :Building ;
+            rdfs:comment "isOfficeOf is a subproperty of isPartOf and relates offices to the building they belong to"@en ;
+            rdfs:label "is office of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isPartOf
+:isPartOf rdf:type owl:ObjectProperty ,
+                   owl:TransitiveProperty ,
+                   owl:ReflexiveProperty ;
+          rdfs:comment "isPartOf is a superproperty of:  isOfficeOf, isBuildingOf, isInstituteOf, isLaboratoryOf, and isResearchGroupOf"@en ;
+          rdfs:label "is part of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#isResearchGroupOf
+:isResearchGroupOf rdf:type owl:ObjectProperty ;
+                   rdfs:subPropertyOf :isPartOf ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :ResearchGroup ;
+                   rdfs:range :Laboratory ;
+                   rdfs:comment "isResearchGroupOf is a subproperty of isPartOf and relates research groups to the laboratory of which it is composed"@en ;
+                   rdfs:label "is research group of"@en .
+
+
+###  http://www.semanticweb.org/research-organization#makesContractWith
+:makesContractWith rdf:type owl:ObjectProperty ,
+                            owl:InverseFunctionalProperty ;
+                   rdfs:domain :ResearchOrganization ;
+                   rdfs:range :Employee ;
+                   rdfs:comment "makesContracWith relates a research organization to employees that have a contract with it"@en ;
+                   rdfs:label "makes contract with"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.semanticweb.org/research-organization#hasDate
+:hasDate rdf:type owl:DatatypeProperty ,
+                  owl:FunctionalProperty ;
+         rdfs:domain :Institute ;
+         rdfs:range xsd:dateTime ;
+         rdfs:comment "hasDate relates a institute and the date of its creation"@en ;
+         rdfs:label "has date"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasEmployeeID
+:hasEmployeeID rdf:type owl:DatatypeProperty ;
+               rdfs:subPropertyOf :hasID ;
+               rdf:type owl:FunctionalProperty ;
+               rdfs:domain :Employee ;
+               rdfs:range xsd:positiveInteger ;
+               owl:propertyDisjointWith :hasInstituteID ;
+               rdfs:comment "hasEmployeeID is a subproperty of hasID and relates an employee with his ID that is an integer"@en ;
+               rdfs:label "has employee ID"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasID
+:hasID rdf:type owl:DatatypeProperty ;
+       rdfs:comment "hasID is a superproperty of: hasEmployeeID and hasInstituteID"@en ;
+       rdfs:label "has ID"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasInstituteID
+:hasInstituteID rdf:type owl:DatatypeProperty ;
+                rdfs:subPropertyOf :hasID ;
+                rdf:type owl:FunctionalProperty ;
+                rdfs:domain :Institute ;
+                rdfs:range xsd:positiveInteger ;
+                rdfs:comment "hasInstituteID is a subproperty of hasID and relates an institute with his ID that is an integer"@en ;
+                rdfs:label "has institute ID"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasInstituteName
+:hasInstituteName rdf:type owl:DatatypeProperty ;
+                  rdfs:subPropertyOf :hasName ;
+                  rdf:type owl:FunctionalProperty ;
+                  rdfs:domain :Institute ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "hasIntituteName is a subproperty of hasName and relates an institute to its name that is a string"@en ;
+                  rdfs:label "has institute name"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasLaboratoryName
+:hasLaboratoryName rdf:type owl:DatatypeProperty ;
+                   rdfs:subPropertyOf :hasName ;
+                   rdf:type owl:FunctionalProperty ;
+                   rdfs:domain :Laboratory ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "hasLaboratoryName is a subproperty of hasName and relates a laboratory to its name that is a string"@en ;
+                   rdfs:label "has laboratory name"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasName
+:hasName rdf:type owl:DatatypeProperty ;
+         rdfs:comment "hasName is a superproperty of: hasInstituteName, hasLaboratoryName and hasResearchGroupName"@en ;
+         rdfs:label "has name"@en .
+
+
+###  http://www.semanticweb.org/research-organization#hasResearchGroupName
+:hasResearchGroupName rdf:type owl:DatatypeProperty ;
+                      rdfs:subPropertyOf :hasName ;
+                      rdf:type owl:FunctionalProperty ;
+                      rdfs:domain :ResearchGroup ;
+                      rdfs:range xsd:string ;
+                      rdfs:comment "hasResearchGroupName is a subproperty of hasName and relates a research group to its name that is a string"@en ;
+                      rdfs:label "has research group name"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.semanticweb.org/research-organization#AdministrativeStaff
+:AdministrativeStaff rdf:type owl:Class ;
+                     rdfs:subClassOf :Employee ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :isMemberOfLaboratory ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :Laboratory
+                                     ] ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty :isMemberOfResearchGroup ;
+                                       owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                       owl:onClass :ResearchGroup
+                                     ] ;
+                     rdfs:comment "An AdministrativeStaff is an employee that is member of exactly one laboratory and research group" ;
+                     rdfs:label "administrative staff" .
+
+
+###  http://www.semanticweb.org/research-organization#Building
+:Building rdf:type owl:Class ;
+          rdfs:subClassOf [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasOffice ;
+                            owl:someValuesFrom :Office
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasLocation ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Location
+                          ] ;
+          rdfs:comment "A Building is a structure, an edifice that has a location and some offices"@en ;
+          rdfs:label "building"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Director
+:Director rdf:type owl:Class ;
+          rdfs:subClassOf :Researcher ;
+          rdfs:comment "A director is a person that is an Employee and a Researcher"@en ;
+          rdfs:label "director"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Employee
+:Employee rdf:type owl:Class ;
+          rdfs:subClassOf <http://xmlns.com/foaf/0.1/Person> ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasContractWith ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :ResearchOrganization
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :isHostedIn ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass :Office
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasEmployeeID ;
+                            owl:allValuesFrom xsd:positiveInteger
+                          ] ,
+                          [ rdf:type owl:Restriction ;
+                            owl:onProperty :hasEmployeeID ;
+                            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                            owl:onDataRange xsd:positiveInteger
+                          ] ;
+          rdfs:comment "An Employee is a person who has a contract with the research organization and has an office. An Employee can be a graduate or postdoctoral fellow, a researcher (young, senior or director), a technologist."@en ;
+          rdfs:label "employee"@en .
+
+
+###  http://www.semanticweb.org/research-organization#GraduateFellow
+:GraduateFellow rdf:type owl:Class ;
+                rdfs:subClassOf :Employee ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isMemberOfLaboratory ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :Laboratory
+                                ] ,
+                                [ rdf:type owl:Restriction ;
+                                  owl:onProperty :isMemberOfResearchGroup ;
+                                  owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                  owl:onClass :ResearchGroup
+                                ] ;
+                rdfs:comment "An GraduateFellow is an employee that is member of exactly one laboratory and research group"@en ;
+                rdfs:label "graduate fellow"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Institute
+:Institute rdf:type owl:Class ;
+           rdfs:subClassOf [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasBuilding ;
+                             owl:someValuesFrom :Building
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasLaboratory ;
+                             owl:someValuesFrom :Laboratory
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :isDirectedBy ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onClass :Director
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasDate ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onDataRange xsd:dateTime
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasInstituteID ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onDataRange xsd:positiveInteger
+                           ] ,
+                           [ rdf:type owl:Restriction ;
+                             owl:onProperty :hasInstituteName ;
+                             owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                             owl:onDataRange xsd:string
+                           ] ;
+           rdfs:comment "An Institute is part of a research organization. Each Institute has a name and an ID, is directed by exactly one director, has buildings and consists of more than one laboratory."@en ;
+           rdfs:label "institute"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Laboratory
+:Laboratory rdf:type owl:Class ;
+            rdfs:subClassOf [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasResearchGroup ;
+                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :ResearchGroup
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :hasLaboratoryName ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onDataRange xsd:string
+                            ] ;
+            rdfs:comment "A Laboratory is part of a research organization. Each Laboratory has a name and at least one research group"@en ;
+            rdfs:label "laboratory"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Location
+:Location rdf:type owl:Class ;
+          rdfs:comment "A Location is a spatial region or named place"@en ;
+          rdfs:label "location"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Office
+:Office rdf:type owl:Class ;
+        rdfs:subClassOf [ rdf:type owl:Restriction ;
+                          owl:onProperty :hosts ;
+                          owl:someValuesFrom :Employee
+                        ] ,
+                        [ rdf:type owl:Restriction ;
+                          owl:onProperty :hosts ;
+                          owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                          owl:onClass :Employee
+                        ] ;
+        rdfs:comment "An Office is a room that hosts one or more employees"@en ;
+        rdfs:label "office"@en .
+
+
+###  http://www.semanticweb.org/research-organization#PostdoctoralFellow
+:PostdoctoralFellow rdf:type owl:Class ;
+                    rdfs:subClassOf :Employee ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :isMemberOfLaboratory ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :Laboratory
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty :isMemberOfResearchGroup ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass :ResearchGroup
+                                    ] ;
+                    rdfs:comment "An PostdoctoralFellow is an employee that is member of exactly one laboratory and research group"@en ;
+                    rdfs:label "postdoctoral fellow"@en .
+
+
+###  http://www.semanticweb.org/research-organization#ResearchGroup
+:ResearchGroup rdf:type owl:Class ;
+               rdfs:subClassOf [ rdf:type owl:Restriction ;
+                                 owl:onProperty :hasResearchGroupName ;
+                                 owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                 owl:onDataRange xsd:string
+                               ] ;
+               rdfs:comment "A Reasearch Group has name and is part of a research organization"@en ;
+               rdfs:label "research group"@en .
+
+
+###  http://www.semanticweb.org/research-organization#ResearchOrganization
+:ResearchOrganization rdf:type owl:Class ;
+                      rdfs:subClassOf <http://xmlns.com/foaf/0.1/Organization> ,
+                                      [ rdf:type owl:Restriction ;
+                                        owl:onProperty :hasInstitute ;
+                                        owl:someValuesFrom :Institute
+                                      ] ;
+                      rdfs:comment "A ResearchOrganization is a type of Organization, it makes contracts with employees and consists of more than one institute"@en ;
+                      rdfs:label "research organization"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Researcher
+:Researcher rdf:type owl:Class ;
+            rdfs:subClassOf :Employee ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :isMemberOfLaboratory ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :Laboratory
+                            ] ,
+                            [ rdf:type owl:Restriction ;
+                              owl:onProperty :isMemberOfResearchGroup ;
+                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                              owl:onClass :ResearchGroup
+                            ] ;
+            rdfs:comment "A Researcher is person that is an employee and can be a young researcher, a senior researcher or a director. A Researcher is member of one laboratory and one research group"@en ;
+            rdfs:label "researcher"@en .
+
+
+###  http://www.semanticweb.org/research-organization#SeniorResearcher
+:SeniorResearcher rdf:type owl:Class ;
+                  rdfs:subClassOf :Researcher ;
+                  rdfs:comment "A SeniorResearcher is a person that is an Employee and a Researcher"@en ;
+                  rdfs:label "senior researcher"@en .
+
+
+###  http://www.semanticweb.org/research-organization#Technologist
+:Technologist rdf:type owl:Class ;
+              rdfs:subClassOf :Employee ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :isMemberOfLaboratory ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :Laboratory
+                              ] ,
+                              [ rdf:type owl:Restriction ;
+                                owl:onProperty :isMemberOfResearchGroup ;
+                                owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                owl:onClass :ResearchGroup
+                              ] ;
+              rdfs:comment "A Technologist is a person and an employee, is member of exactly one laboratory and one research group"@en ;
+              rdfs:label "technologist"@en .
+
+
+###  http://www.semanticweb.org/research-organization#YoungResearcher
+:YoungResearcher rdf:type owl:Class ;
+                 rdfs:subClassOf :Researcher ;
+                 rdfs:comment "A YoungResearcher is a person that is an Employee and a Researcher"@en ;
+                 rdfs:label "young researcher"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Organization
+<http://xmlns.com/foaf/0.1/Organization> rdf:type owl:Class ;
+                                         rdfs:comment "An Organization is a social entity uniting people into a structured group managing shared means to meet some needs, or to pursue collective goals. It can be: Research Organization"@en ;
+                                         rdfs:label "organization"@en .
+
+
+###  http://xmlns.com/foaf/0.1/Person
+<http://xmlns.com/foaf/0.1/Person> rdf:type owl:Class ;
+                                   rdfs:comment "A person can be: employee (graduate or postdoctoral fellow, young or senior researcher, director, technologist)"@en ;
+                                   rdfs:label "person"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.semanticweb.org/research-organization#AIMH
+:AIMH rdf:type owl:NamedIndividual ,
+               :Laboratory ;
+      :hasLaboratoryMember :giovanniBlu ;
+      :hasResearchGroup :gorupB ;
+      :isLaboratoryOf :unipi ;
+      :hasLaboratoryName "Laboratorio AIMH"^^xsd:string .
+
+
+###  http://www.semanticweb.org/research-organization#antonioPonte
+:antonioPonte rdf:type owl:NamedIndividual ,
+                       :SeniorResearcher ;
+              :hasContractWith :beyondResearch ;
+              :isMemberOfLaboratory :AIMH ;
+              :hasEmployeeID "456"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#bari
+:bari rdf:type owl:NamedIndividual ,
+               :Location ;
+      :isLocationOf :edificioB1 .
+
+
+###  http://www.semanticweb.org/research-organization#beyondResearch
+:beyondResearch rdf:type owl:NamedIndividual ,
+                         :ResearchOrganization ;
+                :makesContractWith :francescoCeleste ,
+                                   :giovanniBlu .
+
+
+###  http://www.semanticweb.org/research-organization#booleLab
+:booleLab rdf:type owl:NamedIndividual ,
+                   :Laboratory ;
+          :hasLaboratoryMember :francescoCeleste ;
+          :isLaboratoryOf :unipi ;
+          :hasLaboratoryName "Laboratorio Boole" .
+
+
+###  http://www.semanticweb.org/research-organization#cimecResearch
+:cimecResearch rdf:type owl:NamedIndividual ,
+                        :ResearchOrganization ;
+               :makesContractWith :filippoAllegri ,
+                                  :paoloNeri .
+
+
+###  http://www.semanticweb.org/research-organization#edificioA1
+:edificioA1 rdf:type owl:NamedIndividual ,
+                     :Building ;
+            :hasLocation :pisa ;
+            :hasOffice :office00 ;
+            :isBuildingOf :unipi .
+
+
+###  http://www.semanticweb.org/research-organization#edificioA2
+:edificioA2 rdf:type owl:NamedIndividual ,
+                     :Building ;
+            :hasLocation :pisa ;
+            :isBuildingOf :unipi .
+
+
+###  http://www.semanticweb.org/research-organization#edificioB1
+:edificioB1 rdf:type owl:NamedIndividual ,
+                     :Building ;
+            :hasLocation :bari ;
+            :isBuildingOf :uniba .
+
+
+###  http://www.semanticweb.org/research-organization#fabioBruno
+:fabioBruno rdf:type owl:NamedIndividual ,
+                     :Technologist ;
+            :hasContractWith :beyondResearch ;
+            :isMemberOfLaboratory :AIMH .
+
+
+###  http://www.semanticweb.org/research-organization#filippoAllegri
+:filippoAllegri rdf:type owl:NamedIndividual ,
+                         :SeniorResearcher ;
+                :hasContractWith :cimecResearch ;
+                :hasEmployeeID "1002"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#francescoCeleste
+:francescoCeleste rdf:type owl:NamedIndividual ,
+                           :GraduateFellow ;
+                  :hasContractWith :beyondResearch ;
+                  :isHostedIn :office00 ;
+                  :isMemberOf :unipi ;
+                  :isMemberOfLaboratory :booleLab ;
+                  :hasEmployeeID "10066"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#giacomoGiallo
+:giacomoGiallo rdf:type owl:NamedIndividual ,
+                        :PostdoctoralFellow ;
+               :hasContractWith :cimecResearch ;
+               :isHostedIn :office02 ;
+               :hasEmployeeID "1022"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#gianniRosa
+:gianniRosa rdf:type owl:NamedIndividual ,
+                     :YoungResearcher ;
+            :hasContractWith :cimecResearch ;
+            :hasEmployeeID "12289"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#giovanniBlu
+:giovanniBlu rdf:type owl:NamedIndividual ,
+                      :Director ;
+             :directs :unipi ;
+             :hasContractWith :beyondResearch ;
+             :isHostedIn :office01 ;
+             :isMemberOf :unipi ;
+             :isMemberOfResearchGroup :groupA ;
+             :hasEmployeeID "2231"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#gorupB
+:gorupB rdf:type owl:NamedIndividual ,
+                 :ResearchGroup ;
+        :hasResearchGroupName "Gruppo B0001" .
+
+
+###  http://www.semanticweb.org/research-organization#groupA
+:groupA rdf:type owl:NamedIndividual ,
+                 :ResearchGroup ;
+        :isResearchGroupOf :booleLab ;
+        :hasResearchGroupName "Gruppo A0001" .
+
+
+###  http://www.semanticweb.org/research-organization#groupC
+:groupC rdf:type owl:NamedIndividual ,
+                 :ResearchGroup ;
+        :isResearchGroupOf :turingLab ;
+        :hasResearchGroupName "Gruppo C0001" .
+
+
+###  http://www.semanticweb.org/research-organization#marioRossi
+:marioRossi rdf:type owl:NamedIndividual ,
+                     :AdministrativeStaff ;
+            :hasContractWith :beyondResearch ;
+            :isMemberOf :unipi ;
+            :hasEmployeeID "3321"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#office00
+:office00 rdf:type owl:NamedIndividual ,
+                   :Office ;
+          :hosts :francescoCeleste ,
+                 :marioRossi ;
+          :isOfficeOf :edificioA1 .
+
+
+###  http://www.semanticweb.org/research-organization#office01
+:office01 rdf:type owl:NamedIndividual ,
+                   :Office ;
+          :hosts :giovanniBlu ;
+          :isOfficeOf :edificioA2 .
+
+
+###  http://www.semanticweb.org/research-organization#office02
+:office02 rdf:type owl:NamedIndividual ,
+                   :Office ;
+          :hosts :filippoAllegri ,
+                 :giacomoGiallo ,
+                 :gianniRosa ,
+                 :paoloNeri ;
+          :isOfficeOf :edificioB1 .
+
+
+###  http://www.semanticweb.org/research-organization#paoloNeri
+:paoloNeri rdf:type owl:NamedIndividual ,
+                    :Technologist ;
+           :hasContractWith :cimecResearch ;
+           :isHostedIn :office02 ;
+           :hasEmployeeID "10221"^^xsd:positiveInteger .
+
+
+###  http://www.semanticweb.org/research-organization#pisa
+:pisa rdf:type owl:NamedIndividual ,
+               :Location ;
+      :isLocationOf :edificioA1 ,
+                    :edificioA2 .
+
+
+###  http://www.semanticweb.org/research-organization#turingLab
+:turingLab rdf:type owl:NamedIndividual ,
+                    :Laboratory ;
+           :hasLaboratoryMember :filippoAllegri ,
+                                :giacomoGiallo ;
+           :isLaboratoryOf :uniba ;
+           :hasLaboratoryName "Laboratorio Turing" .
+
+
+###  http://www.semanticweb.org/research-organization#uniba
+:uniba rdf:type owl:NamedIndividual ,
+                :Institute ;
+       :hasBuilding :edificioB1 ;
+       :hasLaboratory :turingLab ;
+       :isInstituteOf :cimecResearch ;
+       :hasDate "2004-05-30T09:00:00"^^xsd:dateTime ;
+       :hasInstituteID 12227 ;
+       :hasInstituteName "Università degli studi di Bari" .
+
+
+###  http://www.semanticweb.org/research-organization#unipi
+:unipi rdf:type owl:NamedIndividual ,
+                :Institute ;
+       :hasBuilding :edificioA1 ,
+                    :edificioA2 ;
+       :hasLaboratory :booleLab ;
+       :isDirectedBy :giovanniBlu ;
+       :isInstituteOf :beyondResearch ;
+       :hasDate "2002-05-30T09:00:00"^^xsd:dateTime ;
+       :hasInstituteID 1223 ;
+       :hasInstituteName "Università degli studi di Pisa" .
+
+
+#################################################################
+#    General axioms
+#################################################################
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :AdministrativeStaff
+                :GraduateFellow
+                :PostdoctoralFellow
+                :Researcher
+                :Technologist
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Building
+                :Employee
+                :Institute
+                :Laboratory
+                :Location
+                :Office
+                :ResearchGroup
+                :ResearchOrganization
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointClasses ;
+  owl:members ( :Director
+                :SeniorResearcher
+                :YoungResearcher
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :hasDate
+                :hasID
+                :hasName
+              )
+] .
+
+
+[ rdf:type owl:AllDisjointProperties ;
+  owl:members ( :hasInstituteName
+                :hasLaboratoryName
+                :hasResearchGroupName
+              )
+] .
+
+
+###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
