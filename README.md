@@ -44,7 +44,6 @@ Q6. Define the axioms necessary for expressing any statement in 1 to 12 that has
 Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.<br>
 
 
-
 ### Running the Project
 The ontology can be used by loading it into Protégé, a free and open source ontology editor and knowledge management system.<br>
 <br>
