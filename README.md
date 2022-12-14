@@ -23,13 +23,13 @@ This **ontology** had to represent the fundamental concepts of an application do
 12. Research organisation, employee, institute, laboratory, research group, building, location and office are pairwise disjoint concepts.
 <br>
 All the above statements are expressed in an **OWL 2 DL** ontology, using the **RDF Turtle** notation.
-In addition, the ontology has the following requirements:
-Q1. Declare the required classes, providing for each class a textual label and a concise textual description of the intension of the class, using the appropriate annotation properties from the RDF Schema vocabulary
-Q2. Provide the sub-class axioms defining the class taxonomy
-Q3. Declare the required object properties, providing for each property:
-  Q3.1. a textual label, using the appropriate annotation property from the RDFS vocabulary
-  Q3.2. a textual description of the intension of the property, using the appropriate annotation property from the RDFS vocabulary
-  Q3.3. one axiom defining the domain of the property
+In addition, the ontology has the following requirements:<br>
+Q1. Declare the required classes, providing for each class a textual label and a concise textual description of the intension of the class, using the appropriate annotation properties from the RDF Schema vocabulary<br>
+Q2. Provide the sub-class axioms defining the class taxonomy<br>
+Q3. Declare the required object properties, providing for each property:<br>
+  Q3.1. a textual label, using the appropriate annotation property from the RDFS vocabulary<br>
+  Q3.2. a textual description of the intension of the property, using the appropriate annotation property from the RDFS vocabulary<br>
+  Q3.3. one axiom defining the domain of the property<br>
   Q3.4. one axiom defining the range of the property
   Q3.5. one axiom defining the inverse of the property
   Q3.6. any additional axioms expressing disjointness of the property with other object properties, and the property characteristics.
