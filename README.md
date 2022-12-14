@@ -43,4 +43,6 @@ Q5. Declare the required data properties, providing:<br>
 Q6. Define the axioms necessary for expressing any statement in 1 to 12 that has not already been expressed.<br>
 Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.<br>
 <br>
-<img src="imgs/ontology_image.png" align="center" alt="Ontology image"  width="60%" height="60%">
+<p align="center">
+<img src="imgs/ontology_image.png" alt="Ontology image"  width="60%" height="60%">
+</p>
