@@ -41,6 +41,4 @@ Q5. Declare the required data properties, providing:<br>
   &nbsp; Q5.4. one axiom defining the range of the property<br>
   &nbsp; Q5.5. any additional axioms expressing disjointness of the property with other data properties, and whether the property is functional.<br>
 Q6. Define the axioms necessary for expressing any statement in 1 to 12 that has not already been expressed.<br>
-Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.<br>
-<br>
-<img src="imgs/ontology_img.png" align="center" alt="Ontology image">
+Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.
