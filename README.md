@@ -22,7 +22,7 @@ This **ontology** had to represent the fundamental concepts of an application do
 11. Each employee has exactly one office. Each office hosts one or more employees.
 12. Research organisation, employee, institute, laboratory, research group, building, location and office are pairwise disjoint concepts.
 <br>
-All the above statements are expressed in an **OWL 2 DL** ontology, using the **RDF Turtle** notation.
+All the above statements are expressed in an <strong>OWL 2 DL</strong> ontology, using the <strong>RDF Turtle</strong> notation.
 In addition, the ontology has the following requirements:<br><br>
 Q1. Declare the required classes, providing for each class a textual label and a concise textual description of the intension of the class, using the appropriate annotation properties from the RDF Schema vocabulary<br>
 Q2. Provide the sub-class axioms defining the class taxonomy<br>
