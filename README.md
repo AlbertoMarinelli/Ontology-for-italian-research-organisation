@@ -27,18 +27,18 @@ In addition, the ontology has the following requirements:<br>
 Q1. Declare the required classes, providing for each class a textual label and a concise textual description of the intension of the class, using the appropriate annotation properties from the RDF Schema vocabulary<br>
 Q2. Provide the sub-class axioms defining the class taxonomy<br>
 Q3. Declare the required object properties, providing for each property:<br>
-  Q3.1. a textual label, using the appropriate annotation property from the RDFS vocabulary<br>
-  Q3.2. a textual description of the intension of the property, using the appropriate annotation property from the RDFS vocabulary<br>
-  Q3.3. one axiom defining the domain of the property<br>
-  Q3.4. one axiom defining the range of the property
-  Q3.5. one axiom defining the inverse of the property
-  Q3.6. any additional axioms expressing disjointness of the property with other object properties, and the property characteristics.
-Q4. Provide the sub-property axioms defining the object property taxonomy
-Q5. Declare the required data properties, providing:
-  Q5.1. a textual label, using the appropriate annotation property from the RDFS vocabulary
-  Q5.2. a textual description of the intension of the property, using the appropriate annotation property from the RDFS vocabulary
-  Q5.3. one axiom defining the domain of the property
-  Q5.4. one axiom defining the range of the property
-  Q5.5. any additional axioms expressing disjointness of the property with other data properties, and whether the property is functional.
-Q6. Define the axioms necessary for expressing any statement in 1 to 12 that has not already been expressed.
-Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.
+  &nbsp; Q3.1. a textual label, using the appropriate annotation property from the RDFS vocabulary<br>
+  &nbsp; Q3.2. a textual description of the intension of the property, using the appropriate annotation property from the RDFS vocabulary<br>
+  &nbsp; Q3.3. one axiom defining the domain of the property<br>
+  &nbsp; Q3.4. one axiom defining the range of the property<br>
+  &nbsp; Q3.5. one axiom defining the inverse of the property<br>
+  &nbsp; Q3.6. any additional axioms expressing disjointness of the property with other object properties, and the property characteristics.<br>
+Q4. Provide the sub-property axioms defining the object property taxonomy<br>
+Q5. Declare the required data properties, providing:<br>
+  &nbsp; Q5.1. a textual label, using the appropriate annotation property from the RDFS vocabulary<br>
+  &nbsp; Q5.2. a textual description of the intension of the property, using the appropriate annotation property from the RDFS vocabulary<br>
+  &nbsp; Q5.3. one axiom defining the domain of the property<br>
+  &nbsp; Q5.4. one axiom defining the range of the property<br>
+  &nbsp; Q5.5. any additional axioms expressing disjointness of the property with other data properties, and whether the property is functional.<br>
+Q6. Define the axioms necessary for expressing any statement in 1 to 12 that has not already been expressed.<br>
+Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.<br>
