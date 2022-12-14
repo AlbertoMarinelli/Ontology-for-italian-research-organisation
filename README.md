@@ -24,7 +24,6 @@ This **ontology** had to represent the fundamental concepts of an application do
 <br>
 All the above statements are expressed in an <strong>OWL 2 DL</strong> ontology, using the <strong>RDF Turtle</strong> notation.
 In addition, the ontology has the following requirements:<br><br>
-<p>
 Q1. Declare the required classes, providing for each class a textual label and a concise textual description of the intension of the class, using the appropriate annotation properties from the RDF Schema vocabulary<br>
 Q2. Provide the sub-class axioms defining the class taxonomy<br>
 Q3. Declare the required object properties, providing for each property:<br>
@@ -44,7 +43,6 @@ Q5. Declare the required data properties, providing:<br>
 Q6. Define the axioms necessary for expressing any statement in 1 to 12 that has not already been expressed.<br>
 Q7. Populate the ontology with at least one individual for each class, and at least one assertion for each property.<br>
 <br>
-<\p>
 ### Running the Project
 The ontology can be used by loading it into Protégé, a free and open source ontology editor and knowledge management system.<br>
 <p align="center">
