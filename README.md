@@ -4,7 +4,7 @@ Project for the Semantic Web course @ [University of Pisa](https://www.unipi.it/
 
 <img src="imgs/unipi_logo.png" align="right" alt="Unipi logo">
 
-Authors: [Alberto Marinelli](https://github.com/AlbertoMarinelli)
+Author: [Alberto Marinelli](https://github.com/AlbertoMarinelli)
 
 
 ### Ontology Description
